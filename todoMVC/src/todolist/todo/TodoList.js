@@ -10,7 +10,7 @@ class TodoList extends Component {
         }
     }
 
-    handleCompleteAll = (e, todos) => {
+    handleCompleteAll = (e) => {
         if (e.target.checked) {
             this.props.setAllCompletes()
         } else if (!e.target.checked) {
@@ -29,7 +29,7 @@ class TodoList extends Component {
             <section className='main'>
                 <input id="toggle-all" className="toggle-all" type="checkbox"
                        onChange={(e) => this.handleCompleteAll(e, todos)}/>
-                <label htmlFor='toggle-all'>
+                 <label htmlFor='toggle-all'>
                 </label>
                 <ul className="todo-list">
                     {currentContent === 'All' ?
