@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import TodoList from "./TodoList";
-import Footer from "./Footer";
-import Top from "./Top";
-import Description from "./Description";
+import TodoList from "../../components/TodoList/TodoList";
+import Footer from "../../components/Footer/Footer";
+import Top from "../../components/Top";
+import Description from "../../components/Description";
 import '../../index.css'
 import {newTodos, newCompletes, addAllTodosToCompletes} from "../../actions";
 
@@ -52,7 +52,7 @@ class Todo extends Component {
                 }
                 return todo;
             }),
-            completes: this.state.completes && this.state.completes.length !== 0 && this.state.completes.filter((complete) => complete.id !== id)
+            completes: this.state.completes.filter((complete) => complete.id !== id)
         })
     }
 
@@ -60,7 +60,7 @@ class Todo extends Component {
         this.setState({
             ...this.state,
             todos: this.state.todos.filter((todo) => todo.id !== id),
-            completes: this.state.completes && this.state.completes.length !== 0 && this.state.completes.filter((complete) => complete.id !== id)
+            completes: this.state.completes.filter((complete) => complete.id !== id)
         })
 
     };

@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 
-
 const Top = ({setTodoList}) => {
     const [name, setName] = useState("")
     const handleSubmit = (e) => {
