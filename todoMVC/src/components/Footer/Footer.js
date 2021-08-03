@@ -1,18 +1,16 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Filters} from "./Filters";
 import {TodoCount} from "./TodoCount";
+import './index.css'
 
-const Footer = ({showContent, leftItemsCount, clearComplete, currentContent, anyComplete}) => {
-    useEffect(() => {
-    }, [anyComplete]);
-
+const Footer = ({showContent, leftItemsCount, clearComplete, filterTypes, anyComplete}) => {
     const handleClearComplete = () => {
         clearComplete()
     }
     return (
         <footer className='footer'>
             <TodoCount leftItemsCount={leftItemsCount}/>
-            <Filters currentContent={currentContent} showContent={showContent}/>
+            <Filters filterTypes={filterTypes} showContent={showContent}/>
             <button className='clear-completed' hidden={anyComplete ? '' : 'hidden'} onClick={handleClearComplete}>
                 Clear completed
             </button>

@@ -1,5 +1,5 @@
 import React from "react";
-
+import './index.css'
 export default function Description() {
     return (
         <footer className='info'>

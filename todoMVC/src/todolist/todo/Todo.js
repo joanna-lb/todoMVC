@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import TodoList from "../../components/TodoList/TodoList";
 import Footer from "../../components/Footer/Footer";
-import Top from "../../components/Top";
-import Description from "../../components/Description";
+import Header from "../../components/Header/Header";
+import Description from "../../components/Description/Description";
 import '../../index.css'
-import {newTodos, newCompletes, addAllTodosToCompletes} from "../../actions";
+import {newTodos} from "../../actions";
 
 
 class Todo extends Component {
@@ -12,16 +12,12 @@ class Todo extends Component {
         super(props);
         this.state = {
             todos: [],
-            completes: [],
-            current: 'All',
-            showDecoration: false,
+            filterTypes: 'All',
         }
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevState.todos !== this.state.todos) {
-            this.state.todos.length !== 0 ? this.setState({showDecoration: true}) : this.setState({showDecoration: false})
-        }
+    showDecoration() {
+        return this.state.todos.length !== 0
     }
 
     setTodoList = (name) => {
@@ -31,71 +27,59 @@ class Todo extends Component {
     }
     setCompletes = (todoSelected) => {
         this.setState({
-            ...this.state,
             todos: this.state.todos.map(todo => {
                 if (todo.id === todoSelected.id) {
-                    return {...todo, complete: true}
+                    return {...todo, isComplete: true}
                 }
                 return todo;
-            }),
-            completes: [...this.state.completes, newCompletes(todoSelected)]
+            })
         })
     }
 
 
-    deleteComplete = (id) => {
+    changeCompleteStatus = (id) => {
         this.setState({
-            ...this.state,
             todos: this.state.todos.map((todo) => {
                 if (todo.id === id) {
-                    return {...todo, complete: false}
+                    return {...todo, isComplete: false}
                 }
                 return todo;
-            }),
-            completes: this.state.completes.filter((complete) => complete.id !== id)
+            })
         })
     }
 
     deleteTodo = (id) => {
         this.setState({
-            ...this.state,
             todos: this.state.todos.filter((todo) => todo.id !== id),
-            completes: this.state.completes.filter((complete) => complete.id !== id)
         })
-
     };
 
-    showContent = (current) => {
+    showContent = (filterTypes) => {
         this.setState({
-            current
+            filterTypes
         })
     }
 
     clearComplete = () => {
         this.setState({
-            ...this.state,
-            todos: this.state.todos.filter(todo => !todo.complete),
-            completes: []
+            todos: this.state.todos.filter(todo => !todo.isComplete),
         })
     }
 
     clearAllCompletes = () => {
         this.setState({
-            ...this.state,
             todos: this.state.todos.map((todo) => {
-                return {...todo, complete: false}
+                return {...todo, isComplete: false}
             }),
-            completes: []
         })
     }
 
-    setAllCompletes = () => {
+
+    selAllTasksAsCompleted = () => {
         this.setState({
-            ...this.state,
             todos: this.state.todos.map((todo) => {
-                return {...todo, complete: true}
+                return {...todo, isComplete: true}
             }),
-            completes: addAllTodosToCompletes(this.state.todos)
         })
     }
 
@@ -104,22 +88,24 @@ class Todo extends Component {
         return (
             <>
                 <section className="todoapp">
-                    <Top setTodoList={this.setTodoList}/>
-                    {this.state.showDecoration && <TodoList
+                    <Header setTodoList={this.setTodoList}
+                            ifShowDecoration={this.showDecoration()}
+                            todos={this.state.todos}
+                            clearAllCompletes={this.clearAllCompletes}
+                            selAllTasksAsCompleted={this.selAllTasksAsCompleted}
+                    />
+                    {this.showDecoration() && <TodoList
                         todos={this.state.todos}
-                        completes={this.state.completes}
                         setCompletes={this.setCompletes}
                         deleteTodo={this.deleteTodo}
-                        deleteComplete={this.deleteComplete}
-                        currentContent={this.state.current}
-                        clearAllCompletes={this.clearAllCompletes}
-                        setAllCompletes={this.setAllCompletes}
+                        changeCompleteStatus={this.changeCompleteStatus}
+                        filterTypes={this.state.filterTypes}
                     />}
-                    {this.state.showDecoration && <Footer showContent={this.showContent}
-                                                          leftItemsCount={this.state.todos.filter(todo => !todo.complete).length}
-                                                          clearComplete={this.clearComplete}
-                                                          currentContent={this.state.current}
-                                                          anyComplete={this.state.completes.length > 0}
+                    {this.showDecoration() && <Footer showContent={this.showContent}
+                                                      leftItemsCount={this.state.todos.filter(todo => !todo.isComplete).length}
+                                                      clearComplete={this.clearComplete}
+                                                      filterTypes={this.state.filterTypes}
+                                                      anyComplete={this.state.todos.filter(todo => todo.isComplete).length > 0}
                     />}
                 </section>
                 <Description/>

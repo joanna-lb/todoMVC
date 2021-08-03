@@ -1,6 +1,7 @@
 import Todo from "./todolist/todo/Todo";
-import React,{Component} from "react";
+import React from "react";
 import './index.css'
+import './components/Header/index.css'
 
 export default function App() {
     return (
