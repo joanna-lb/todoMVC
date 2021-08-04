@@ -39,6 +39,7 @@
 .todo-list li {
     position: relative;
     font-size: 24px;
+    /*z-index:13;*/
     border-bottom: 1px solid #ededed;
 }
 
@@ -80,4 +81,15 @@
 
 .todo-list li:hover .destroy {
     display: block;
+}
+
+.edit{
+    font: 24px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    margin-left: 57px;
+    padding: 7px;
+    width: 492px;
+    border:1px solid #999;
+    box-shadow:inset 0 -1px 5px 0 rgba(0, 0, 0,0.2 );
+    box-sizing: border-box;
 }

@@ -11,7 +11,7 @@ class TodoList extends Component {
     }
 
     handleComplete = (todo, e) => {
-        e.target.checked ? this.props.setCompletes(todo) : this.props.changeCompleteStatus(todo.id)
+        e.target.checked ? this.props.setCompletes(todo.id) : this.props.changeCompleteStatus(todo.id)
     }
 
 
@@ -24,18 +24,24 @@ class TodoList extends Component {
                     {filterTypes === FILTERS_TYPES.All &&
                         todos.map(todo =>
                             <TodoItems todo={todo} todos={this.props.todos} handleComplete={this.handleComplete}
-                                       key={todo.id} deleteTodo={this.props.deleteTodo}/>
+                                       key={todo.id} deleteTodo={this.props.deleteTodo}
+                                       editTodoList={this.props.editTodoList}
+                            />
                         )
                         ||
                         filterTypes === FILTERS_TYPES.Completed &&
                             todos.filter(todo => todo.isComplete).map((todo) =>
                                 <TodoItems todo={todo} todos={this.props.todos} handleComplete={this.handleComplete}
-                                           key={todo.id} deleteTodo={this.props.deleteTodo}/>
+                                           key={todo.id} deleteTodo={this.props.deleteTodo}
+                                           editTodoList={this.props.editTodoList}
+                                />
                             )
                             ||
                             todos.filter(todo => !todo.isComplete).map((todo) => (
                                 <TodoItems todo={todo} todos={this.props.todos} handleComplete={this.handleComplete}
-                                           key={todo.id} deleteTodo={this.props.deleteTodo}/>
+                                           key={todo.id} deleteTodo={this.props.deleteTodo}
+                                           editTodoList={this.props.editTodoList}
+                                />
                             ))
                     }
                 </ul>

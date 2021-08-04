@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import TodoList from "../../components/TodoList/TodoList";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
@@ -6,113 +6,120 @@ import Description from "../../components/Description/Description";
 import '../../index.css'
 import {newTodos} from "../../actions";
 
+const defaultState = JSON.parse(localStorage.getItem("todos") || "[]")
 
-class Todo extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            todos: [],
-            filterTypes: 'All',
-        }
+function Todo() {
+    const [todos, setTodos] = useState(defaultState)
+    const [filterTypes, setFilterTypes] = useState('All')
+
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(todos))
+    }, [todos])
+
+
+    const showDecoration = () => {
+        return todos.length !== 0
     }
 
-    showDecoration() {
-        return this.state.todos.length !== 0
+    const setTodoList = (name) => {
+        setTodos([...todos, newTodos(name)]
+        )
     }
 
-    setTodoList = (name) => {
-        this.setState({
-            todos: [...this.state.todos, newTodos(name)]
-        })
+    const editTodoList = (id, name) => {
+        setTodos(todos.map(todo => {
+                if (todo.id === id) {
+                    return {...todo, name: name}
+                }
+                return todo;
+            })
+        )
     }
-    setCompletes = (todoSelected) => {
-        this.setState({
-            todos: this.state.todos.map(todo => {
-                if (todo.id === todoSelected.id) {
+    const setCompletes = (id) => {
+        setTodos(todos.map(todo => {
+                if (todo.id === id) {
                     return {...todo, isComplete: true}
                 }
                 return todo;
             })
-        })
+        )
     }
 
 
-    changeCompleteStatus = (id) => {
-        this.setState({
-            todos: this.state.todos.map((todo) => {
+    const changeCompleteStatus = (id) => {
+        setTodos(todos.map((todo) => {
                 if (todo.id === id) {
                     return {...todo, isComplete: false}
                 }
                 return todo;
             })
-        })
+        )
     }
 
-    deleteTodo = (id) => {
-        this.setState({
-            todos: this.state.todos.filter((todo) => todo.id !== id),
-        })
+    const deleteTodo = (id) => {
+        setTodos(todos.filter((todo) => todo.id !== id))
     };
 
-    showContent = (filterTypes) => {
-        this.setState({
+    const showContent = (filterTypes) => {
+        setFilterTypes(
             filterTypes
-        })
+        )
     }
 
-    clearComplete = () => {
-        this.setState({
-            todos: this.state.todos.filter(todo => !todo.isComplete),
-        })
+    const clearComplete = () => {
+        setTodos(todos.filter(todo => !todo.isComplete))
     }
 
-    clearAllCompletes = () => {
-        this.setState({
-            todos: this.state.todos.map((todo) => {
-                return {...todo, isComplete: false}
-            }),
-        })
+    const clearAllCompletes = () => {
+        setTodos(todos.map((todo) => {
+            return {...todo, isComplete: false}
+        }))
     }
 
 
-    selAllTasksAsCompleted = () => {
-        this.setState({
-            todos: this.state.todos.map((todo) => {
+    const selAllTasksAsCompleted = () => {
+        setTodos(todos.map((todo) => {
                 return {...todo, isComplete: true}
-            }),
-        })
+            })
+        )
+    }
+
+    const leftItemsCount = () => {
+        return todos.filter(todo => !todo.isComplete).length;
+    }
+
+    const checkAnyComplete = () => {
+        return todos.filter(todo => todo.isComplete).length > 0
     }
 
 
-    render() {
-        return (
-            <>
-                <section className="todoapp">
-                    <Header setTodoList={this.setTodoList}
-                            ifShowDecoration={this.showDecoration()}
-                            todos={this.state.todos}
-                            clearAllCompletes={this.clearAllCompletes}
-                            selAllTasksAsCompleted={this.selAllTasksAsCompleted}
-                    />
-                    {this.showDecoration() && <TodoList
-                        todos={this.state.todos}
-                        setCompletes={this.setCompletes}
-                        deleteTodo={this.deleteTodo}
-                        changeCompleteStatus={this.changeCompleteStatus}
-                        filterTypes={this.state.filterTypes}
-                    />}
-                    {this.showDecoration() && <Footer showContent={this.showContent}
-                                                      leftItemsCount={this.state.todos.filter(todo => !todo.isComplete).length}
-                                                      clearComplete={this.clearComplete}
-                                                      filterTypes={this.state.filterTypes}
-                                                      anyComplete={this.state.todos.filter(todo => todo.isComplete).length > 0}
-                    />}
-                </section>
-                <Description/>
-            </>
-        );
-    }
-
+    return (
+        <>
+            <section className="todoapp">
+                <Header setTodoList={setTodoList}
+                        ifShowDecoration={showDecoration()}
+                        todos={todos}
+                        clearAllCompletes={clearAllCompletes}
+                        selAllTasksAsCompleted={selAllTasksAsCompleted}
+                />
+                {showDecoration() && <TodoList
+                    todos={todos}
+                    setCompletes={setCompletes}
+                    deleteTodo={deleteTodo}
+                    changeCompleteStatus={changeCompleteStatus}
+                    filterTypes={filterTypes}
+                    editTodoList={editTodoList}
+                />}
+                {showDecoration() && <Footer showContent={showContent}
+                                             leftItemsCount={leftItemsCount()}
+                                             clearComplete={clearComplete}
+                                             filterTypes={filterTypes}
+                                             anyComplete={checkAnyComplete()}
+                />}
+            </section>
+            <Description/>
+        </>
+    );
 }
 
 export default Todo;
