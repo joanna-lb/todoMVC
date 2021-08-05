@@ -77,7 +77,7 @@ function Todo() {
     }
 
 
-    const selAllTasksAsCompleted = () => {
+    const setAllTasksAsCompleted = () => {
         setTodos(todos.map((todo) => {
                 return {...todo, isComplete: true}
             })
@@ -100,7 +100,7 @@ function Todo() {
                         ifShowDecoration={showDecoration()}
                         todos={todos}
                         clearAllCompletes={clearAllCompletes}
-                        selAllTasksAsCompleted={selAllTasksAsCompleted}
+                        setAllTasksAsCompleted={setAllTasksAsCompleted}
                 />
                 {showDecoration() && <TodoList
                     todos={todos}

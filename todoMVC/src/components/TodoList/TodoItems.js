@@ -26,7 +26,7 @@ const TodoItems = ({todo,handleComplete, deleteTodo,editTodoList}) => {
                                }}
                         />
                         <label
-                            className={todo.isComplete?'checkboxChecked':'checkboxUnchecked'}
+                            className={todo.isComplete?'checkbox-checked':'checkbox-unchecked'}
                             onDoubleClick={()=>setIsEdit(true)}
                           >{name===''?todo.name:name}</label>
                         <button className='destroy' onClick={() => deleteTodo(todo.id)}>x</button>

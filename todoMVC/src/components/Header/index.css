@@ -48,7 +48,7 @@
     width: 65px;
     z-index:2;
 }
-.rotate{
+.toggle-all{
     transform: rotate(89deg);
     display: block;
     font-size: 23px;
@@ -60,7 +60,7 @@
     color: #e6e6e6;
 }
 
-.rotate-checked{
+.toggle-all-checked{
     transform: rotate(89deg);
     display: block;
     font-size: 23px;

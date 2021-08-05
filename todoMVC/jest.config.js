@@ -16,8 +16,8 @@ module.exports = {
     transformIgnorePatterns: ["<rootDir>/node_modules/"],
     //跳过或者忽略某些
     moduleNameMapper: {
-        '\\css$':
-            "<rootDir>/__mocks__/fileMock.js",
+        "\\.css$":
+            "identity-obj-proxy",
     },
 
 
@@ -43,7 +43,7 @@ module.exports = {
   // collectCoverageFrom: null,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: "reports",
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
