@@ -1,27 +1,26 @@
 import React, {useState} from "react";
 import './index.css'
-import {editTodoList, deleteTodo, setCompletes, changeCompleteStatus} from "../../actions";
-import {useDispatch} from "react-redux";
+import {editTodoList, deleteTodo, setCompletes, changeCompleteStatus} from '../../redux/action'
+import {connect} from "react-redux";
 
-const TodoItems = ({todo}) => {
+const TodoItems = ({todo, editTodoList, deleteTodo, setCompletes, changeCompleteStatus}) => {
 
-    const dispatch = useDispatch()
     const [isEdit, setIsEdit] = useState(false)
     const [name, setName] = useState(todo.name)
 
     const handleKeyUp = (e, todo, name) => {
         const reg = new RegExp(/^\s+$/)
         if (e.keyCode === 13 && !reg.test(name) && name.length > 0) {
-            editTodoList(dispatch, todo.id, name)
+            editTodoList(todo.id, name)
             setIsEdit(false)
         } else if (name.length === 0 && e.keyCode === 13) {
-            deleteTodo(dispatch, todo.id)
+            deleteTodo(todo.id)
             setIsEdit(false)
         }
     }
 
     const handleComplete = (todo, e) => {
-        e.target.checked ? setCompletes(dispatch, todo.id) : changeCompleteStatus(dispatch, todo.id)
+        e.target.checked ? setCompletes(todo.id) : changeCompleteStatus(todo.id)
     }
 
     return (
@@ -38,7 +37,7 @@ const TodoItems = ({todo}) => {
                             className={todo.isComplete ? 'checkbox-checked' : 'checkbox-unchecked'}
                             onDoubleClick={() => setIsEdit(true)}
                         >{name === '' ? todo.name : name}</label>
-                        <button className='destroy' onClick={() => deleteTodo(dispatch, todo.id)}>x</button>
+                        <button className='destroy' onClick={() => deleteTodo(todo.id)}>x</button>
                     </div>}
                     {isEdit && <input className='edit' value={name}
                                       onKeyUp={(e) => handleKeyUp(e, todo, name)}
@@ -50,4 +49,11 @@ const TodoItems = ({todo}) => {
     )
 }
 
-export default TodoItems
+export default connect(
+    state => ({
+        todos: state.todos,
+        filterType: state.filterType
+    }), {
+        editTodoList, deleteTodo, setCompletes, changeCompleteStatus
+    }
+)(TodoItems)

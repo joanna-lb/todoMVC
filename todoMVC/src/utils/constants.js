@@ -3,3 +3,20 @@ export const FILTERS_TYPES = {
     Active: 'Active',
     Completed: 'Completed'
 }
+export const SET_FILTER_TYPES='SET_FILTER_TYPES'
+
+export const CLEAR_COMPLETE='CLEAR_COMPLETE'
+
+export const SET_ALL_TASKS_AS_COMPLETED='SET_ALL_TASKS_AS_COMPLETED'
+
+export const CLEAR_ALL_COMPLETES='CLEAR_ALL_COMPLETES'
+
+export const CHANGE_COMPLETE_STATUS="CHANGE_COMPLETE_STATUS"
+
+export const SET_COMPLETES='SET_COMPLETES'
+
+export const EDIT_TODO_LIST='EDIT_TODO_LIST'
+
+export const SET_TODO_LIST='SET_TODO_LIST'
+
+export const DELETE_TODO=' DELETE_TODO'

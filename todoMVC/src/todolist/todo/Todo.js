@@ -4,9 +4,9 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import Description from "../../components/Description/Description";
 import '../../index.css'
-import {fetchTodos, newTodos} from "../../actions";
+import {fetchTodos, newTodos} from "../../shared";
 import {useTodoContext} from "../../contexts/TodoProvider";
-import {setTodoList} from "../../actions";
+import {setTodoList} from "../../shared";
 import {TodoProvider} from "../../contexts/TodoProvider";
 
 // const defaultState = JSON.parse(localStorage.getItem("todos") || [])

@@ -5,6 +5,7 @@ import '@testing-library/jest-dom'
 import TodoItems from "./TodoItems";
 import userEvent from "@testing-library/user-event";
 
+
 const mockTodo = {id: 124, name: '124', complete: false}
 describe('Todo', () => {
     test('should delete one todo when click delete button', () => {

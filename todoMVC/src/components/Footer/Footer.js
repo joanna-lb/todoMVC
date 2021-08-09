@@ -1,34 +1,34 @@
 import React from "react";
-import {Filters} from "./Filters";
-import {TodoCount} from "./TodoCount";
+import Filters from "./Filters";
+import TodoCount from "./TodoCount";
 import './index.css'
+import {connect} from "react-redux";
+import {checkIfShowDecoration, checkAnyComplete} from '../../shared'
+import {clearComplete} from '../../redux/action'
 
-import {checkIfShowDecoration} from "../../actions";
-import {clearComplete} from "../../actions";
+const Footer = ({todos, clearComplete}) => {
 
-import {checkAnyComplete} from "../../actions";
-import {useDispatch, useSelector} from "react-redux";
-
-const Footer = () => {
-
-    const state = useSelector((state) => state.todoList)
-    const dispatch = useDispatch()
     const handleClearComplete = () => {
-        clearComplete(dispatch)
+        clearComplete()
     }
-    const ifShowDecoration = checkIfShowDecoration()
 
+
+    const ifShowDecoration =
+        checkIfShowDecoration(todos)
 
     return (
         ifShowDecoration && <footer className='footer'>
             <TodoCount/>
             <Filters/>
 
-            <button className='clear-completed' hidden={checkAnyComplete(state.todos) ? '' : 'hidden'}
+            <button className='clear-completed' hidden={checkAnyComplete(todos) ? '' : 'hidden'}
                     onClick={handleClearComplete}>
                 Clear completed
             </button>
         </footer>
     )
 }
-export default Footer;
+export default connect(
+    state => ({todos: state.todos}),
+    {clearComplete}
+)(Footer);

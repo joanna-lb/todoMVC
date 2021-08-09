@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import './index.css'
-import {checkIfShowDecoration} from "../../actions";
-import {setTodoList, setAllTasksAsCompleted, clearAllCompletes} from "../../actions";
-import {useDispatch, useSelector} from "react-redux";
+import {checkIfShowDecoration} from "../../shared";
+import {connect} from "react-redux";
+import {setTodoList, setAllTasksAsCompleted, clearAllCompletes} from "../../redux/action";
 
-const Header = () => {
-    const dispatch = useDispatch()
-    const state = useSelector((state) => state.todoList)
-    const ifShowDecoration = checkIfShowDecoration()
+const Header = ({setTodoList, setAllTasksAsCompleted, clearAllCompletes, todos}) => {
+
+    const ifShowDecoration =
+        checkIfShowDecoration(todos)
     const [name, setName] = useState("")
     const [changeArrowStyle, setArrowStyle] = useState(false)
 
@@ -15,17 +15,17 @@ const Header = () => {
         e.preventDefault();
         const reg = new RegExp(/^\s+$/)
         if (!reg.test(name) && name.length > 0) {
-            setTodoList(dispatch, name)
+            setTodoList(name)
         }
         setName("")
     }
 
     const handleCompleteAll = (e) => {
         setArrowStyle(!changeArrowStyle)
-        if (state.todos.filter(todo => !todo.isComplete).length > 0) {
-            setAllTasksAsCompleted(dispatch)
-        } else if (state.todos.filter(todo => todo.isComplete).length > 0) {
-            clearAllCompletes(dispatch)
+        if (todos.filter(todo => !todo.isComplete).length > 0) {
+            setAllTasksAsCompleted()
+        } else if (todos.filter(todo => todo.isComplete).length > 0) {
+            clearAllCompletes()
         }
     }
 
@@ -34,7 +34,7 @@ const Header = () => {
         <header className='header'>
             <h1>todos</h1>
             <form onSubmit={handleSubmit} className='new-todo-form'>
-                <div className='new-todo-div' onClick={(e) => handleCompleteAll(e, state.todos)}>
+                <div className='new-todo-div' onClick={(e) => handleCompleteAll(e, todos)}>
                     {ifShowDecoration && <span className={changeArrowStyle ? 'toggle-all-checked' : 'toggle-all'}
                                                data-testid='toggle-all'>❯</span>}
                 </div>
@@ -46,4 +46,7 @@ const Header = () => {
         </header>
     )
 }
-export default Header;
+export default connect(
+    state => ({todos: state.todos}),
+    {setTodoList, setAllTasksAsCompleted, clearAllCompletes}
+)(Header);

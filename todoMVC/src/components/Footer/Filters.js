@@ -1,21 +1,20 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {FILTERS_TYPES} from "../../utils/constants";
-import {setFilterTypes} from "../../actions";
-import {useDispatch, useSelector} from "react-redux";
+import {setFilterTypes} from "../../redux/action";
+import {connect} from "react-redux";
 
-const Filters = () => {
-    const state = useSelector((state) => state.todoList)
-    const dispatch = useDispatch()
+
+const Filters = ({filterType, setFilterTypes}) => {
 
     const handleClick = (filterTypes) => {
-        setFilterTypes(dispatch, filterTypes)
+        setFilterTypes(filterTypes)
     }
 
     return (
         <ul className='filters'>
             {Object.keys(FILTERS_TYPES).map((key) => (
                 <li key={key}>
-                    <a href={'#/'} className={state.filterType === key ? 'selected' : null}
+                    <a href={'#/'} className={filterType === key ? 'selected' : null}
                        onClick={() => handleClick(key)}
                     >
                         {FILTERS_TYPES[key]}
@@ -25,4 +24,7 @@ const Filters = () => {
         </ul>
     )
 }
-export {Filters};
+export default connect(
+    state => ({todos: state.todos, filterType: state.filterType}),
+    {setFilterTypes}
+)(Filters);

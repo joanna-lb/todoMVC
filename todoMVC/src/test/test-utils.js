@@ -5,15 +5,17 @@ import'@testing-library/jest-dom'
 
 import {Provider} from "react-redux";
 
-import {configureStore} from "@reduxjs/toolkit";
 
-import todoReducer from '../redux/todoSlice'
+import todoReducer from "../redux/reducers";
+import {createStore,applyMiddleware} from "redux";
+import thunk from "redux-thunk";
+
 
         function render(
             ui,
             {
                 preloadedState,
-                store = configureStore({ reducer: { todoList: todoReducer }, preloadedState }),
+                store = createStore( todoReducer,applyMiddleware(thunk)),
                 ...renderOptions
             } = {}
         ) {
