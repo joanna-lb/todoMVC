@@ -28,8 +28,8 @@ describe('Todo', () => {
     test('should edit todo when double click', () => {
         const editTodoList = jest.fn()
         render(<TodoItems todo={mockTodo} editTodoList={editTodoList}/>)
-        const firstItem = screen.getByText('124')
-        userEvent.dblClick(firstItem)
+        const firstItem = screen.getByText('124');
+        userEvent.dblClick(firstItem);
         const input = screen.getAllByRole('textbox')[0];
         userEvent.type(input, '%{enter}');
         expect(editTodoList).toBeCalled();

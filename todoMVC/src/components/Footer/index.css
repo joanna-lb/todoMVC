@@ -6,6 +6,8 @@
     height: 20px;
     text-align: center;
     border-top: 1px solid #e6e6e6;
+    display: flex;
+    justify-content: space-between;
 }
 
 .footer:before {
@@ -22,9 +24,6 @@
     0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
-.todo-count {
-    float: left;
-}
 
 .filters {
     margin: 0;
