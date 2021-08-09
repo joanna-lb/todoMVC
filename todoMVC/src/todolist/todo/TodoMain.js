@@ -1,5 +1,5 @@
 import React from "react";
-import {TodoProvider} from "../../contexts/TodoProvider";
+
 import TodoList from "../../components/TodoList/TodoList";
 import Header from "../../components/Header/Header";
 import Description from "../../components/Description/Description";

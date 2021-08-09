@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {newTodos} from "../actions"
 
-const initialState = {
+export const initialState = {
     todos: [],
     filterType: 'All'
 }
