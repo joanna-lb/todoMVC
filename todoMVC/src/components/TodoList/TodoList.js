@@ -1,11 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import TodoItems from "./TodoItems";
 import {FILTERS_TYPES} from "../../utils/constants";
+import {setTodoList} from "../../redux/action";
+import {fetchTodoList} from "../../shared";
 
 
 
-const TodoList = ({todos, filterType}) => {
+const TodoList = ({todos, filterType,setTodoList}) => {
+
+  useEffect( async ()=>{
+     await fetchTodoList().then(res=>setTodoList(res.data))
+  },[])
 
     return (
         <section className='main'>
@@ -41,5 +47,5 @@ export default connect(
     state => ({
         todos: state.todos,
         filterType: state.filterType
-    })
+    }),{setTodoList}
 )(TodoList);

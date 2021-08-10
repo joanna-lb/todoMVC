@@ -12,6 +12,16 @@
       "id": 3,
       "name": "Joanna",
       "complete": false
+    },
+    {
+      "id": 4,
+      "name": "Lisa",
+      "complete": false
+    },
+    {
+      "id": 5,
+      "name": "Cloe",
+      "complete": false
     }
   ]
 }

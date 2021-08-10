@@ -1,15 +1,10 @@
 import React from "react";
-import {screen,render as rtlRender,cleanup} from "@testing-library/react";
+import {render as rtlRender} from "@testing-library/react";
 import'@testing-library/jest-dom'
-
-
 import {Provider} from "react-redux";
-
-
 import todoReducer from "../redux/reducers";
 import {createStore,applyMiddleware} from "redux";
 import thunk from "redux-thunk";
-
 
         function render(
             ui,

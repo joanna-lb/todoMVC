@@ -1,15 +1,15 @@
 import {
-    CHANGE_COMPLETE_STATUS,
+    ADD_TODO,
     CLEAR_ALL_COMPLETES, CLEAR_COMPLETE, DELETE_TODO, EDIT_TODO_LIST,
-    SET_ALL_TASKS_AS_COMPLETED,
-    SET_COMPLETES, SET_FILTER_TYPES,
-    SET_TODO_LIST
+    SET_ALL_TASKS_AS_COMPLETED, SET_FILTER_TYPES,
+    SET_TODO_LIST, CHANGE_COMPLETE_STATUS
 } from "../../utils/constants";
 
 
-const setTodoList = name => {
-    return ({type: SET_TODO_LIST, data: name})
-}
+const setTodoList = name => ({type: SET_TODO_LIST, payload: name})
+
+
+const addTodo = todo => ({type: ADD_TODO, payload: todo})
 
 
 const setAllTasksAsCompleted = () =>
@@ -20,44 +20,34 @@ const clearAllCompletes = () =>
     ({type: CLEAR_ALL_COMPLETES})
 
 
-const setCompletes = (id) =>
-    ({type: SET_COMPLETES, data: id})
-
-
-const changeCompleteStatus = (id) =>
-    ({type: CHANGE_COMPLETE_STATUS, data: id})
+const changeCompleteStatus = (id, isComplete) =>
+    ({type: CHANGE_COMPLETE_STATUS, payload: {id, isComplete}})
 
 
 const editTodoList = (id, name) =>
-    ({type: EDIT_TODO_LIST, data: {id, name}})
+    ({type: EDIT_TODO_LIST, payload: {id, name}})
 
 
 const deleteTodo = (id) =>
-    ({type: DELETE_TODO, data: id})
+    ({type: DELETE_TODO, payload: id})
 
 
 const setFilterTypes = (filterType) =>
-    ({type: SET_FILTER_TYPES, data: filterType})
+    ({type: SET_FILTER_TYPES, payload: filterType})
 
 
 const clearComplete = () =>
     ({type: CLEAR_COMPLETE})
 
 
-const leftItemsCount = (todos) => {
-    return todos.filter(todo => !todo.isComplete).length;
-}
-
-
 export {
-    leftItemsCount,
     setTodoList,
     setAllTasksAsCompleted,
     clearAllCompletes,
-    setCompletes,
     changeCompleteStatus,
     editTodoList,
     deleteTodo,
     setFilterTypes,
-    clearComplete
+    clearComplete,
+    addTodo
 }

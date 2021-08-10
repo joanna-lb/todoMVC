@@ -1,8 +1,5 @@
 import {nanoid} from "nanoid";
-
-
-
-import {useSelector} from "react-redux";
+import axios from "axios";
 
 
 const newTodos = (name) => {
@@ -11,12 +8,6 @@ const newTodos = (name) => {
         name,
         isComplete: false
     }
-}
-
-
-const checkIfShowDecoration = (todos) => {
-
-    return todos.length !== 0
 }
 
 
@@ -29,16 +20,25 @@ const checkAnyComplete = (todos) => {
 
 }
 
+export const BASE_URL = 'http://localhost:4000/todos'
+const fetchTodoList = () => axios.get(BASE_URL)
 
+const createTodo = todo => {
+   return axios.post(BASE_URL, todo)
+}
 
+const deleteTodoAction = (id) => {
+    return axios.delete(`${BASE_URL}/${id}`)
+}
+
+const updateTodoAction = (id, data) => axios.patch(`${BASE_URL}/${id}`, data)
 
 export {
-    checkIfShowDecoration,
     leftItemsCount,
     checkAnyComplete,
     newTodos,
-
+    fetchTodoList,
+    deleteTodoAction,
+    updateTodoAction,
+    createTodo,
 }
-// export const TODOS_URL='http://localhost:4000/todos'
-// const fetchTodos=()=>axios.get('http://localhost:4000/todos');
-// const addTodo=(name)=>axios.post(TODOS_URL,name)

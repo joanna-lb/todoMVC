@@ -1,31 +1,34 @@
 import React, {useState} from "react";
 import './index.css'
-import {checkIfShowDecoration} from "../../shared";
+import { createTodo, newTodos, updateTodoAction} from "../../shared";
 import {connect} from "react-redux";
-import {setTodoList, setAllTasksAsCompleted, clearAllCompletes} from "../../redux/action";
+import { setAllTasksAsCompleted, clearAllCompletes,addTodo} from "../../redux/action";
 
-const Header = ({setTodoList, setAllTasksAsCompleted, clearAllCompletes, todos}) => {
+const Header = ({setAllTasksAsCompleted, clearAllCompletes, todos,addTodo}) => {
 
-    const ifShowDecoration =
-        checkIfShowDecoration(todos)
     const [name, setName] = useState("")
-    const [changeArrowStyle, setArrowStyle] = useState(false)
+    const [allCompleteArrowStyle, setAllCompleteArrowStyle] = useState(false)
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault();
         const reg = new RegExp(/^\s+$/)
         if (!reg.test(name) && name.length > 0) {
-            setTodoList(name)
+            const newTodo = newTodos(name)
+            await createTodo(newTodo)
+            await addTodo(newTodo)
+            setName("");
         }
-        setName("")
     }
 
-    const handleCompleteAll = (e) => {
-        setArrowStyle(!changeArrowStyle)
+    const handleCompleteAll =async () => {
         if (todos.filter(todo => !todo.isComplete).length > 0) {
-            setAllTasksAsCompleted()
+            setAllCompleteArrowStyle(true)
+          await  todos.forEach(todo=>updateTodoAction(todo.id,{isComplete:true}))
+              await setAllTasksAsCompleted()
         } else if (todos.filter(todo => todo.isComplete).length > 0) {
-            clearAllCompletes()
+            setAllCompleteArrowStyle(false)
+            await  todos.forEach(todo=>updateTodoAction(todo.id,{isComplete:false}))
+           await clearAllCompletes()
         }
     }
 
@@ -35,7 +38,7 @@ const Header = ({setTodoList, setAllTasksAsCompleted, clearAllCompletes, todos})
             <h1>todos</h1>
             <form onSubmit={handleSubmit} className='new-todo-form'>
                 <div className='new-todo-div' onClick={(e) => handleCompleteAll(e, todos)}>
-                    {ifShowDecoration && <span className={changeArrowStyle ? 'toggle-all-checked' : 'toggle-all'}
+                    {todos.length>0 && <span className={allCompleteArrowStyle ? 'toggle-all-checked' : 'toggle-all'}
                                                data-testid='toggle-all'>❯</span>}
                 </div>
                 <input className='new-todo-input'
@@ -48,5 +51,5 @@ const Header = ({setTodoList, setAllTasksAsCompleted, clearAllCompletes, todos})
 }
 export default connect(
     state => ({todos: state.todos}),
-    {setTodoList, setAllTasksAsCompleted, clearAllCompletes}
+    { setAllTasksAsCompleted, clearAllCompletes,addTodo}
 )(Header);

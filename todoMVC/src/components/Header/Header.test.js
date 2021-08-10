@@ -4,6 +4,8 @@ import {render} from "../../test/test-utils";
 import '@testing-library/jest-dom';
 import userEvent from "@testing-library/user-event";
 import Header from "./Header";
+import {waitFor} from "@babel/core/lib/gensync-utils/async";
+
 
 describe('Header', () => {
 
@@ -19,24 +21,13 @@ describe('Header', () => {
         screen.getByRole('textbox');
     })
 
-    test('should add to list and render', () => {
+    test('should add to list and render',async () => {
         const setTodoList = jest.fn();
         render(<Header setTodoList={setTodoList}/>)
         const input = screen.getByRole('textbox')
         userEvent.type(input, '123{enter}')
 
-        expect(setTodoList).toHaveBeenCalled()
-    })
-
-    test('should complete all when click button and todos are not all completed', () => {
-
-        const setAllTasksAsCompleted = jest.fn()
-        const setTodoList = jest.fn();
-        render(<Header ifShowDecoration={true} setTodoList={setTodoList} todos={mockTodos}
-                       setAllTasksAsCompleted={setAllTasksAsCompleted}/>)
-        const span = screen.getByTestId('toggle-all')
-        userEvent.click(span)
-        expect(setAllTasksAsCompleted).toHaveBeenCalled()
+     await waitFor(()=> expect(setTodoList).toHaveBeenCalled())
     })
 
 })
