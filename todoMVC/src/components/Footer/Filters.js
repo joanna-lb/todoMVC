@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {FILTERS_TYPES} from "../../utils/constants";
 import {setFilterTypes} from "../../redux/action";
 import {connect} from "react-redux";

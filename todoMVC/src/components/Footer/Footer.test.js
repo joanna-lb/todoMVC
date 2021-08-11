@@ -37,16 +37,14 @@ describe('Clear Complete Button ', () => {
     test('should call clear complete function when click button',async () => {
         const mockClearComplete = jest.fn();
         const mockCheckAnyComplete=jest.fn();
-      const{container}=  render(<Footer
+      render(<Footer
             todos={mockTodos} showContent={'All'} clearComplete={mockClearComplete}
             checkAnyComplet={mockCheckAnyComplete}
         />)
 
-        const clearButton=queryByTestId(container,'button')
-        expect(clearButton).toBe()
-        //fireEvent.click(clearButton)
-       // const clearButton = screen.getByText('Clear completed')
-     //fireEvent.click(clearButton)
-       // await waitFor(()=>expect(mockClearComplete).toHaveBeenCalled())
+        const clearButton=screen.queryByText(/Clear completed/i)
+        expect(clearButton).toBeInTheDocument()
+        fireEvent.click(clearButton)
+        await waitFor(()=>expect(mockClearComplete).toHaveBeenCalled())
     })
 })

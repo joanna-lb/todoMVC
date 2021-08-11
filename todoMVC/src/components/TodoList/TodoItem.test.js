@@ -33,12 +33,12 @@ describe('Todo', () => {
        await waitFor(()=>expect(handleComplete).toBeCalled())
     })
 
-    test('should edit todo when double click', () => {
+    test('should edit todo when double click',async () => {
         render(<TodoItems todo={mockTodo} />)
         const firstItem = screen.getByText('124');
         userEvent.dblClick(firstItem);
         const input = screen.getAllByRole('textbox')[0];
         userEvent.type(input, '%{enter}');
-        expect(screen.getByRole('listitem')).toHaveTextContent('%')
+        await waitFor(()=> expect(screen.getByRole('listitem')).toHaveTextContent('%'))
     })
 })

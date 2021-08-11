@@ -1,7 +1,6 @@
 import {
-    SET_TODO_LIST, DELETE_TODO, SET_COMPLETE_FALSE,
-    SET_ALL_TASKS_AS_COMPLETED, SET_FILTER_TYPES,
-    SET_COMPLETE_TRUE, CLEAR_ALL_COMPLETES,
+    SET_TODO_LIST, DELETE_TODO,
+    SET_ALL_TASKS_AS_COMPLETED, SET_FILTER_TYPES, CLEAR_ALL_COMPLETES,
     EDIT_TODO_LIST, CLEAR_COMPLETE,ADD_TODO,CHANGE_COMPLETE_STATUS
 } from "../../utils/constants";
 
@@ -58,7 +57,7 @@ export default function todoReducer(state = initialState, action) {
                 ...state,
                 todos: state.todos.map(todo => {
                     if (todo.id === action.payload.id) {
-                        return {...todo, name: action.data.name}
+                        return {...todo, name: action.payload.name}
                     }
                     return todo;
                 })

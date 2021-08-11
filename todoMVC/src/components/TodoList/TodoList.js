@@ -11,6 +11,7 @@ const TodoList = ({todos, filterType,setTodoList}) => {
 
   useEffect( async ()=>{
      await fetchTodoList().then(res=>setTodoList(res.data))
+
   },[])
 
     return (

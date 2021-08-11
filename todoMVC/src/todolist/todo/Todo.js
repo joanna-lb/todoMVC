@@ -3,9 +3,8 @@ import TodoList from "../../components/TodoList/TodoList";
 import Header from "../../components/Header/Header";
 import Description from "../../components/Description/Description";
 import Footer from "../../components/Footer/Footer";
-import store from "../../redux/store";
 import {connect} from "react-redux";
-import {setTodoList} from "../../redux/action";
+
 
 function Todo({todos}) {
 

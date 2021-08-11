@@ -1,5 +1,6 @@
 import {nanoid} from "nanoid";
 import axios from "axios";
+import {FILTERS_TYPES} from "../utils/constants";
 
 
 const newTodos = (name) => {
@@ -17,8 +18,10 @@ const leftItemsCount = (todos) => {
 
 const checkAnyComplete = (todos) => {
     return todos.filter(todo => todo.isComplete).length > 0
-
 }
+
+
+
 
 export const BASE_URL = 'http://localhost:4000/todos'
 const fetchTodoList = () => axios.get(BASE_URL)

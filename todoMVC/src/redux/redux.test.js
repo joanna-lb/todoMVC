@@ -3,7 +3,7 @@ import {
     CLEAR_ALL_COMPLETES,
     CLEAR_COMPLETE,
     SET_ALL_TASKS_AS_COMPLETED, SET_COMPLETE_TRUE, SET_COMPLETE_FALSE,
-    SET_TODO_LIST, EDIT_TODO_LIST, DELETE_TODO, SET_FILTER_TYPES
+    SET_TODO_LIST, EDIT_TODO_LIST, DELETE_TODO, SET_FILTER_TYPES, CHANGE_COMPLETE_STATUS
 } from "../utils/constants";
 
 describe('todo reducer', () => {
@@ -16,10 +16,11 @@ describe('todo reducer', () => {
     test('should return state with todos when SET_TODO_LIST', () => {
         const mockAction = {
             type: SET_TODO_LIST,
-            data: 'mock name',
+            payload: [{id: 1, name: 'mock user 1', isComplete: true},
+                {id: 2, name: 'mock user 2', isComplete: false}],
         }
         const expectedState = todoReducer(mockInitialState, mockAction);
-        expect(expectedState.todos).toEqual('mock name')
+        expect(expectedState.todos.length).toBe(2)
     });
 
     test('should only return state with todos which is not complete', () => {
@@ -80,8 +81,8 @@ describe('todo reducer', () => {
             filterType: 'All'
         }
         const mockAction = {
-            type: SET_COMPLETE_TRUE,
-            data: 2
+            type: CHANGE_COMPLETE_STATUS,
+            payload: {id:2,isComplete: false}
         }
         const expectedState = todoReducer(mockTodos, mockAction);
         expect(expectedState.todos[1].isComplete).toBe(false)
@@ -96,7 +97,7 @@ describe('todo reducer', () => {
         }
         const mockAction = {
             type: SET_COMPLETE_FALSE,
-            data: 3
+            payload: 3
         }
         const expectedState = todoReducer(mockTodos, mockAction);
         expect(expectedState.todos[1].isComplete).toBe(true)
@@ -112,7 +113,7 @@ describe('todo reducer', () => {
         }
         const mockAction = {
             type: EDIT_TODO_LIST,
-            data: {id: 1, name: 'edit name'}
+            payload: {id: 1, name: 'edit name'}
         }
         const expectedState = todoReducer(mockTodos, mockAction);
         expect(expectedState.todos[0].name).toEqual('edit name')
@@ -127,7 +128,7 @@ describe('todo reducer', () => {
         }
         const mockAction = {
             type: DELETE_TODO,
-            data: 1
+            payload: 1
         }
         const expectedState = todoReducer(mockTodos, mockAction);
         expect(expectedState.todos[0].id).toEqual(2)
@@ -142,7 +143,7 @@ describe('todo reducer', () => {
         }
         const mockAction = {
             type: SET_FILTER_TYPES,
-            data: 'Active'
+            payload: 'Active'
         }
         const expectedState = todoReducer(mockTodos, mockAction);
         expect(expectedState.filterType).toEqual('Active')
