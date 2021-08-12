@@ -1,13 +1,12 @@
 import {
     SET_TODO_LIST, DELETE_TODO,
-    SET_ALL_TASKS_AS_COMPLETED, SET_FILTER_TYPES, CLEAR_ALL_COMPLETES,
+    SET_ALL_TASKS_AS_COMPLETED, CLEAR_ALL_COMPLETES,
     EDIT_TODO_LIST, CLEAR_COMPLETE,ADD_TODO,CHANGE_COMPLETE_STATUS
 } from "../../utils/constants";
 
 
 const initialState = {
     todos: [],
-    filterType: 'All'
 }
 
 export default function todoReducer(state = initialState, action) {
@@ -66,11 +65,6 @@ export default function todoReducer(state = initialState, action) {
             return {
                 ...state,
                 todos: state.todos.filter((todo) => todo.id !== action.payload)
-            }
-        case SET_FILTER_TYPES:
-            return {
-                ...state,
-                filterType: action.payload
             }
         default:
             return state

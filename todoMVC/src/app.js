@@ -6,7 +6,7 @@ import store from "./redux/store";
 export default function App() {
     return (
         <div>
-           <Todo store={store}/>
+          <Todo store={store}/>
         </div>
     );
 

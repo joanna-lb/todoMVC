@@ -23,7 +23,7 @@ const checkAnyComplete = (todos) => {
 
 
 
-export const BASE_URL = 'http://localhost:4000/todos'
+export const BASE_URL = 'http://localhost:3000/todos'
 const fetchTodoList = () => axios.get(BASE_URL)
 
 const createTodo = todo => {

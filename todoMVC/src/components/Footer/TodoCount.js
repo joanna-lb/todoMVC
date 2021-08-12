@@ -15,5 +15,4 @@ const TodoCount = ({todos}) => {
 
 export default connect(
     state => ({todos: state.todos}),
-    {leftItemsCount}
 )(TodoCount);

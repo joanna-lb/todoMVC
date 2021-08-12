@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import {FILTERS_TYPES} from "../../utils/constants";
-import {setFilterTypes} from "../../redux/action";
 import {connect} from "react-redux";
 
 
-const Filters = ({filterType, setFilterTypes}) => {
+const Filters = ({changeShowContent}) => {
+    const[filterType,setFilterType]=useState('All')
 
-    const handleClick = (filterTypes) => {
-        setFilterTypes(filterTypes)
+    const handleClick = (filterType) => {
+    changeShowContent(filterType)
+        setFilterType(filterType)
     }
 
     return (
@@ -25,6 +26,5 @@ const Filters = ({filterType, setFilterTypes}) => {
     )
 }
 export default connect(
-    state => ({todos: state.todos, filterType: state.filterType}),
-    {setFilterTypes}
+    state => ({todos: state.todos})
 )(Filters);

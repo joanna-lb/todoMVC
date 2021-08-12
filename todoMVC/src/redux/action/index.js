@@ -1,7 +1,7 @@
 import {
     ADD_TODO,
     CLEAR_ALL_COMPLETES, CLEAR_COMPLETE, DELETE_TODO, EDIT_TODO_LIST,
-    SET_ALL_TASKS_AS_COMPLETED, SET_FILTER_TYPES,
+    SET_ALL_TASKS_AS_COMPLETED,
     SET_TODO_LIST, CHANGE_COMPLETE_STATUS
 } from "../../utils/constants";
 
@@ -32,8 +32,7 @@ const deleteTodo = (id) =>
     ({type: DELETE_TODO, payload: id})
 
 
-const setFilterTypes = (filterType) =>
-    ({type: SET_FILTER_TYPES, payload: filterType})
+
 
 
 const clearComplete = () =>
@@ -50,7 +49,6 @@ export {
     changeCompleteStatus,
     editTodoList,
     deleteTodo,
-    setFilterTypes,
     clearComplete,
     addTodo
 }

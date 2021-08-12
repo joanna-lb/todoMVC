@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "webpack-dev-server",
-    "test": "jest"
+    "test": "jest",
+    "start": "webpack-dev-server --mode=development"
   },
   "author": "",
   "license": "ISC",
@@ -37,7 +38,6 @@
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "open-browser-webpack-plugin": "0.0.5",
-    "sass-loader": "^11.1.1",
     "style-loader": "^1.0.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.10",

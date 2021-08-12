@@ -3,15 +3,13 @@ export const FILTERS_TYPES = {
     Active: 'Active',
     Completed: 'Completed'
 }
-export const SET_FILTER_TYPES='SET_FILTER_TYPES'
+
 
 export const CLEAR_COMPLETE='CLEAR_COMPLETE'
 
 export const SET_ALL_TASKS_AS_COMPLETED='SET_ALL_TASKS_AS_COMPLETED'
 
 export const CLEAR_ALL_COMPLETES='CLEAR_ALL_COMPLETES'
-
-export const SET_COMPLETE_TRUE="SET_COMPLETE_TRUE"
 
 export const SET_COMPLETE_FALSE='SET_COMPLETE_FALSE'
 
@@ -25,4 +23,4 @@ export const  ADD_TODO='ADD_TODO'
 
 export const CHANGE_COMPLETE_STATUS='CHANGE_COMPLETE_STATUS'
 
-export const SHOW_NOT_COMPLETE='SHOW_NOT_COMPLETE'
+

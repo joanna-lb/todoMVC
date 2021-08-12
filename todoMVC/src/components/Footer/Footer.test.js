@@ -25,7 +25,7 @@ describe('Todo Count', () => {
 describe('Filters', () => {
     test('should call showContent function with certain filter type', async () => {
         const mockShowContent = jest.fn();
-        render(<Filters todos={mockTodos} showContent={mockShowContent} filterTypes={'Active'}/>)
+        render(<Filters todos={mockTodos} changeShowContent={mockShowContent} filterTypes={'Active'}/>)
         const filterType = screen.getByText('Active')
         userEvent.click(filterType)
       await waitFor(()=>expect(mockShowContent).toHaveBeenCalledWith('Active'))

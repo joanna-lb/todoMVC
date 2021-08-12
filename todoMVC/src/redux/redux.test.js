@@ -2,8 +2,8 @@ import todoReducer from "./reducers";
 import {
     CLEAR_ALL_COMPLETES,
     CLEAR_COMPLETE,
-    SET_ALL_TASKS_AS_COMPLETED, SET_COMPLETE_TRUE, SET_COMPLETE_FALSE,
-    SET_TODO_LIST, EDIT_TODO_LIST, DELETE_TODO, SET_FILTER_TYPES, CHANGE_COMPLETE_STATUS
+    SET_ALL_TASKS_AS_COMPLETED, SET_COMPLETE_FALSE,
+    SET_TODO_LIST, EDIT_TODO_LIST, DELETE_TODO, CHANGE_COMPLETE_STATUS
 } from "../utils/constants";
 
 describe('todo reducer', () => {
@@ -134,20 +134,6 @@ describe('todo reducer', () => {
         expect(expectedState.todos[0].id).toEqual(2)
     })
 
-    test('should set specific filter type ', () => {
-        const mockTodos = {
-            todos: [{id: 1, name: 'mock user 1', isComplete: true},
-                {id: 2, name: 'mock user 2', isComplete: true},
-                {id: 3, name: 'mock user 3', isComplete: false}],
-            filterType: 'All'
-        }
-        const mockAction = {
-            type: SET_FILTER_TYPES,
-            payload: 'Active'
-        }
-        const expectedState = todoReducer(mockTodos, mockAction);
-        expect(expectedState.filterType).toEqual('Active')
-    })
 
 
     test('should return default state', () => {

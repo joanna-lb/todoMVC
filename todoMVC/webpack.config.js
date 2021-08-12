@@ -24,9 +24,6 @@ module.exports = {
         ]
     },
     plugins:[
-        new openBrowser({
-            url:"http://localhost:8080"
-        }),
         new htmlPlugin({
             template: "./public/index.html"
         })

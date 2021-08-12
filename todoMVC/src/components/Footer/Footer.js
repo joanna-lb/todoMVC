@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {checkAnyComplete, deleteTodoAction} from '../../shared'
 import {clearComplete} from '../../redux/action'
 
-const Footer = ({todos, clearComplete}) => {
+const Footer = ({todos, clearComplete,changeShowContent}) => {
 
     const handleClearComplete =async () => {
         await   todos.filter(todo=>todo.isComplete).forEach(
@@ -17,7 +17,7 @@ const Footer = ({todos, clearComplete}) => {
     return (
         <footer className='footer'>
             <TodoCount/>
-            <Filters/>
+            <Filters changeShowContent={changeShowContent}/>
             <button data-testid='button' className='clear-completed' hidden={checkAnyComplete(todos) ? '' : 'hidden'}
                     onClick={handleClearComplete}>
                 Clear completed
