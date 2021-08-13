@@ -31,6 +31,7 @@ module.exports = {
     devServer: {
         //基础路径
         contentBase:"./dist",
+        host: '0.0.0.0',
         port:8080,
         progress:true
     }

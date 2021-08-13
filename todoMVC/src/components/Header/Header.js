@@ -25,6 +25,7 @@ const Header = ({setAllTasksAsCompleted, clearAllCompletes, todos,addTodo}) => {
             setAllCompleteArrowStyle(true)
           await  todos.forEach(todo=>updateTodoAction(todo.id,{isComplete:true}))
               await setAllTasksAsCompleted()
+        //    await
         } else if (todos.filter(todo => todo.isComplete).length > 0) {
             setAllCompleteArrowStyle(false)
             await  todos.forEach(todo=>updateTodoAction(todo.id,{isComplete:false}))
